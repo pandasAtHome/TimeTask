@@ -1,2 +1,5 @@
 venv/
 log/
+task/configs.py
+mytools/test.py
+__pycache__
