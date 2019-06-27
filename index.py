@@ -66,7 +66,6 @@ except KeyboardInterrupt:
 except ModuleNotFoundError:
     write_log("No module named 'task.{}'".format(_class_name), _params = sys.argv)
 except Exception as e:
-    exit(print('error'))
     details = traceback.format_exc()  # 获取代码执行顺序
     details = details.split('\n')[3:-1]  # 去除无关提示
     positions = []  # 到达报错位置的每个调用节点
