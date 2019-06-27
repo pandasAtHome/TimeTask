@@ -13,6 +13,7 @@ import codecs
 import requests
 import subprocess
 import pprint
+import inspect
 from urllib import parse
 from logging import handlers
 
@@ -738,6 +739,10 @@ def file_put_content(_path, _content, _encoding = 'utf-8'):
     _path = ROOT_PATH + '/' + _path.strip('/')
     with open(_path, 'a', encoding = _encoding) as fpw:
         fpw.write(_content)
+
+
+def get_function_name():
+    return inspect.stack()[1][3]
 
 
 if __name__ == '__main__':
