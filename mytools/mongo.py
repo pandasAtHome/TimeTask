@@ -5,7 +5,6 @@ import pymongo
 # import json
 import copy
 from bson.son import SON
-import traceback
 
 # 自定义模块
 from mytools import tools
@@ -243,24 +242,6 @@ class Mongo(object):
 
         self.set_default()
         return result
-
-    def unset_col(self, _table, _where, cols, _limit = None):
-        """
-        删除字段
-        :param str _table: 表
-        :param dict _where: 删除位置
-        :param list cols: 删除位置
-        :param bool _limit: 删除数量 True -> 删除一条 | False -> 删除多条
-        :return:
-        """
-        # 选择集合
-        conn_col = self.set_col(_table)
-        try:
-            _limit = True if _limit is None else _limit
-            if _limit:
-                conn_col.update_one(_where, )
-        except Exception as e:
-            pass
 
     def aggregate(self, _table, _pipeline):
         """
