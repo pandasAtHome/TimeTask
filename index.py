@@ -6,7 +6,6 @@ import copy
 import traceback
 
 # 引入自定义模块
-import task
 from mytools import tools
 from mytools import glob
 
@@ -50,14 +49,16 @@ if len(_path) != 2:
 _class_name = tools.upper_first(_path[0].strip())  # 类名，首字母大写
 _func_name = _path[1].strip()  # 方法名
 
+# 记录请求参数
+if params:
+    glob.set_value('params', params)
+
 # 执行函数
 try:
-    # 这个值的大小取决你自己，最好适中即可
-    # 执行完递归再降低，毕竟递归深度太大，如果是其他未知的操作引起，可能会造成内存溢出
-    # sys.setrecursionlimit(1000000)
-    # 设置中文输出
-    tools.set_stdout()  # 解决编码问题
-    _class = getattr(task, _class_name)  # 加载 C._class._class 类
+    tools.set_stdout()  # 设置中文输出，解决编码问题
+    _module = __import__('task.' + _class_name)  # 加载 C 模块
+    _module = getattr(_module, _class_name)  # 加载 C._class 模块
+    _class = getattr(_module, _class_name)  # 加载 C._class._class 类
     _func = getattr(_class(), _func_name)  # 加载 C._class._class 类的 _func 函数
     _func()  # 调用 _func 函数
 except KeyboardInterrupt:
