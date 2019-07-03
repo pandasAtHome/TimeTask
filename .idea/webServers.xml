@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="8fc3c0d7-9f34-4e10-bef4-cd84ab6b9a31" name="TimeTask" url="http://119.28.7.235">
+        <fileTransfer host="119.28.7.235" port="22" rootFolder="/data/service/nginx/html/task" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

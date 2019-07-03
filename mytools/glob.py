@@ -11,8 +11,8 @@
 
 def init():
     """初始化全局变量"""
-    global _dict
-    _dict = {}
+    global global_dict
+    global_dict = {}
 
 
 def set_value(_key, _value):
@@ -22,7 +22,7 @@ def set_value(_key, _value):
     :param _value: 键值
     :return:
     """
-    _dict[_key] = _value
+    global_dict[_key] = _value
 
 
 def get_value(_key = None, _default = None):
@@ -34,9 +34,9 @@ def get_value(_key = None, _default = None):
     """
     try:
         if not _key:
-            return _dict
+            return global_dict
         else:
-            return _dict[_key]
+            return global_dict[_key]
     except Exception as e:
         return _default
 
@@ -54,11 +54,11 @@ def del_value(_key = None, _sub = None):
         if _sub:
             _sub = _sub.split('.')
             if len(_sub) >= 2:
-                del _dict[_key][_sub[0]][_sub[1]]
+                del global_dict[_key][_sub[0]][_sub[1]]
             else:
-                del _dict[_key][_sub[0]]
+                del global_dict[_key][_sub[0]]
         else:
-            del _dict[_key]
+            del global_dict[_key]
         return True
     except Exception as e:
         return False
