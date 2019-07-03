@@ -6,7 +6,7 @@ import json
 from mytools import tools
 
 
-class FacebookCurl(object):
+class FbMarketApi(object):
     """
     - 官方文档：https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group/insights/
     - 调试接口：https://developers.facebook.com/tools/explorer/
