@@ -43,15 +43,16 @@ if not params:
 
 # 执行方法路径：/xxx/xxx
 # 2、字符串切割，获取类名、方法名
-_path = params.pop(0).strip('/').split('/')
-if len(_path) != 2:
+_class_name, _func_name = params.pop(0).strip('/').split('/')
+if not _class_name or not _func_name:
     exit(write_log("Path must be '/xxx/xxx'", _params = sys.argv))
-_class_name = tools.upper_first(_path[0].strip())  # 类名，首字母大写
-_func_name = _path[1].strip()  # 方法名
+glob.set_value('path', '{}/{}'.format(_class_name, _func_name))  # 记录访问路径
+_class_name = tools.upper_first(_class_name.strip())  # 类名，首字母大写
+_func_name = _func_name.strip()  # 方法名
 
 # 记录请求参数
 if params:
-    glob.set_value('params', params)
+    glob.set_value('params', params.pop(0))
 
 # 执行函数
 try:
