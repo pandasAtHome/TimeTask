@@ -145,12 +145,16 @@ def mk_dir(_path):
         return False
 
 
-def get_timestamp(_date = None, _format = None, _ms = False):
+def get_timestamp(_date = None, _format = None, **kwargs):
     """
     获取当前时间戳 或 日期转时间戳
     :param date|str|None _date: 时间
     :param str|None _format: 格式
-    :param bool _ms: 是否获取毫秒：False -> 返回秒 | True -> 返回毫秒
+    :param kwargs:
+        - _days: 天数
+        - _weeks: 周数
+        - _months: 月数
+        - _years: 年数
     :return: 返回时间戳(单位：秒)
     """
     if _date:
@@ -169,6 +173,29 @@ def get_timestamp(_date = None, _format = None, _ms = False):
         time_stamp = time.mktime(time_tuple)
     else:
         time_stamp = time.time()
+
+    time_stamp = int(time_stamp)
+    if '_days' in kwargs:
+        time_stamp += int(kwargs['_days']) * 86400
+    elif '_weeks' in kwargs:
+        time_stamp += int(kwargs['_days']) * 7 * 86400
+    elif kwargs:
+        _date = get_date('%Y-%m-%d %H:%M:%S', time_stamp)
+        if '_months' in kwargs:
+            date_arr = explode_date(_date[:10])
+            date_arr['month'] += kwargs['_months']
+            if date_arr['month'] <= 0:
+                date_arr['year'] -= 1
+                date_arr['month'] += 12
+            elif date_arr['month'] > 12:
+                date_arr['year'] += 1
+                date_arr['month'] -= 12
+            pre_month = '0' if date_arr['month'] < 10 else ''
+            date_arr = [str(date_arr['year']), pre_month + str(date_arr['month']), str(date_arr['month'])]
+            _date = '-'.join(date_arr) + _date[10:]
+        elif '_years' in kwargs:
+            _date = str(int(_date[:4]) + kwargs['_years']) + _date[4:]
+        time_stamp = get_timestamp(_date, '%Y-%m-%d %H:%M:%S')
 
     return int(time_stamp)
 
