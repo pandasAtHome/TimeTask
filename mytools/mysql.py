@@ -328,7 +328,7 @@ class MySql(object):
                                 if isinstance(col, list):  # where['name']['in'] = []
                                     new = []
                                     for item in col:
-                                        new.append('\'' + item + '\'')
+                                        new.append('\'' + str(item) + '\'')
                                     value = j + ' (' + (','.join(new)) + ')'
                                 elif isinstance(col, str):  # where['name']['in'] = 'abc'
                                     col = col.lstrip('(')
