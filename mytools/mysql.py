@@ -177,7 +177,7 @@ class MySql(object):
         values = []
         for k, v in _param.items():
             keys.append('`' + k + '`')
-            if not v:
+            if v is None or v == '':
                 values.append('NULL')
             elif tools.is_array(v):
                 values.append('\'' + re.escape(json.dumps(v)) + '\'')
@@ -214,12 +214,12 @@ class MySql(object):
                            _type = 3)
                 continue
             for k, v in _param.items():
-                if not v:
-                    value.append('`NULL')
+                if v is None or v == '':
+                    value.append('NULL')
                 elif tools.is_array(v):
                     value.append('\'' + re.escape(json.dumps(v)) + '\'')
                 else:
-                    value.append('\'' + v + '\'')
+                    value.append('\'' + str(v) + '\'')
             values.append('(' + (','.join(value)) + ')')
 
         self.__sql = 'INSERT INTO ' + _table + ' ( ' + (','.join(keys)) + ') VALUES ' + (','.join(values))
